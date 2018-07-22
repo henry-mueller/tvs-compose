@@ -1,0 +1,15 @@
+version: '3' # specify docker-compose version
+
+# Define the services/containers to be run
+services:
+  express: #name of the node service
+    image: gcr.io/tvs-api/tvs-express:latest # specify the image of the Dockerfile
+    ports:
+      - "3001:3001" #specify ports forewarding
+    links:
+      - database # link this service to the database service
+
+  database: # name of the db service
+    image: gcr.io/tvs-api/tvs-db:latest # specify image to build container from
+    ports:
+      - "27017:27017" # specify port forewarding
