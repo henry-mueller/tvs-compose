@@ -2,6 +2,18 @@ version: '3' # specify docker-compose version
 
 # Define the services/containers to be run
 services:
+  nginx-ssl-proxy:
+    image: danieldent/nginx-ssl-proxy
+    restart: always
+    environment:
+      UPSTREAM: 127.0.0.1:3001
+      SERVERNAME: test.example.com
+      EXTRANAMES: www.test.example.com,test2.example.com
+    ports:
+      - "80:80"
+      - "443:443"
+  volumes:
+    - "/etc/letsencrypt"
   express: #name of the node service
     image: gcr.io/tvs-api/tvs-express:latest # specify the image of the Dockerfile
     ports:
